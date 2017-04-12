@@ -1,0 +1,536 @@
+﻿calculator 计算器
+
+gimp
+
+hdparm 测试硬盘性能，也可以更改某些参数
+blkid 查看uuid，以及属性
+
+sudo aptdcon --upgrade-system 升级整个系统
+
+mp3 div乱码(windows -> ubuntu)
+find . -iname "*.mp3" -execdir mid3iconv -e GBK {} \;
+txt文件乱码(windows -> ubuntu) -f encoding of original text  -t encoding for output
+iconv -f gbk -t utf8 linux常用命令.txt > linux常用命令.txt.utf8
+
+------------------------
+回收站的位置：
+/.local/share/Trash
+
+挂载iso，防止中文乱码
+sudo mount -t iso9660 -o loop,utf8 
+
+手工释放缓存
+sync
+echo 3 > /proc/sys/vm/drop_caches
+
+nl 文件名
+打开的文件显示行号
+-------------------------------------------------------------------------------------------------------------------
+安装latex
+1 安装texlive latex
+
+# apt-get install texlive-latex-base
+
+2 安装cjk
+
+# apt-get install latex-cjk-chinese
+
+3 安装中文字体
+
+# apt-get install latex-cjk-chinese-arphic-gbsn00lp latex-cjk-chinese-arphic-gkai00mp  
+
+安装了这些软件包以后，我们就可以编写一个简单的测试文件来测试一下我们的Latex是否可以正常工作了。
+
+编写下面的Latex测试文件：
+
+\documentclass{article}
+\begin{document}
+Hello,\LaTeXe
+\end{document}
+
+\documentclass{article}
+\usepackage{CJKutf8}
+\begin{document}
+\begin{CJK*}{UTF8}{gbsn}
+你好，\LaTeXe
+\end{CJK*}
+\end{document}
+对于简体中文，只有两种字体可以免费使用：
+gbsn 和 gkai
+pdflatex 命令可以将tex生成pdf
+
+安装nkai nsung 新宋体，新楷体
+    sudo apt-get install ttf-arphic*  
+    wget ftp://cle.linux.org.tw/pub2/tex/cjk/fonts/nsungt1/nsungt1-1.4.2.tar.gz  
+    tar zxvf nsungt1-1.4.2.tar.gz  
+    cd nsungt1-1.4.2  
+    sh install.sh  
+    cd ..  
+    wget ftp://cle.linux.org.tw/pub2/tex/cjk/fonts/nkait1/nkait1-1.4.2.tar.gz  
+    cd nkait1-1.4.2  
+    sh install.sh  
+    cd ..  
+
+
+apt-get install texlive-latex-recommended
+
+\begin{sffamily}
+Some sans-serif text.
+\end{sffamily}
+-----------------------------------------------------------------------------------------
+美化器，哈哈！爽！
+indent -linux temp.c   
+
+taknoting工具，很棒
+xournal
+
+fc-list
+可以查看系统有多少字体
+
+df
+du
+
+删除多余的Kernel
+dpkg --get-selections|grep linux
+
+---------
+新建用户后，不能自动补全的解决方法：
+
+看看echo $SHELL输出
+/etc/passwd中的用户的shell是bash还是sh还是dash或其他,你建的普通用户改为/bin/bash,其他系统用户别改
+
+看看普通用户有没有~/.bashrc文件,没有的话复制/etc/bash.bashrc,或去网上抄一份,或者复制root用户的
+
+有没有/etc/profile文件,没有的话,用root用户,aptitude reinstall bash
+
+看看echo $PS1的输出
+-------
+Goldfish采用arm926TCPU，属于armv5TEJ。具体型号ARM926EJ-S－－这个可以在启动信息中查看 (-s:代表合成，用户可以自行修改)
+armv5架构于armv7架构区别：
+
+ARMv5TEJ这个CPU内核型号中，v5代表第5号版本的ARM指令集，以及相应的CPU内核物理结构，T：thumb J:java。
+StrongARM系列微处理器的CPU内核是v4，ARM11系列的 CPU大多是v6，而ARM Cortex的CPU则是v7。虽然ARM有不同版本的指令集，但是这些指令的物理意义大同小异，不同之处在于指令数量的多寡，以及指令的语法规则的调整。
+-----------
+export http_proxy=http://
+
+关于cscope 和 ctags
+如果要包含.S文件，那么：
+find . -name "*.[Ssch]" > cscope.files
+然后cscope -bRq
+要使ctags也能够分辨.S文件：
+ctags -R -L cscope.files
+即可！
+
+cpsr在进入管理模式后，会将cpsr中的值保存到spsr中，然后，cpsr继续使用。
+
+-----------------------------------
+在vim中查找不以[开头的行
+/^[^\[]
+:g/^\s*$/d    删除只有空白的行
+
+g表示在全局范围内
+在vim中查找不以arm开头的行
+/^[^\<arm\>]
+ps:[]只匹配单个字符。
+
+0,$ range:从0到最后一行。
+行首\^
+数字\d
+重复匹配0或者1个\?
+重复匹配0或者多个\*
+重复匹配1或者多个\+
+
+Vi的替换命令：
+
+:range s/pat1/pat2/g 
+1-2----------------3
+1.:这是Vi的命令执行界面
+2. range 是命令执行范围的指定，
+   使用百分号（%）表示所有行，
+   使用点（.）表示当前行，
+   使用美元符号（$）表示最后一行。
+   你还可以使用行号，例如10,20表示第10到20行，.,$表示当前行到最后一行，.+2,$-5表示当前行后两行直到全文的倒数第五行，等等。
+3.最后的g是可选标志，带这个标志表示替换将针对行中每个匹配的串进行，否则则只替换行中第一个匹配串。
+
+删除行尾空格 %s/ *$//
+
+
+
+用ma,mb命令标记后用:'a,'bd删除.  
+
+ari2c 多线程下载工具
+
+ 设置path
+export PATH=$PATH:/path/to/bin
+
+
+SSH打开图形界面
+ssh -X root@ip
+
+man -aw man //看有那些种类的man手册 
+
+export ANDROID_PRODUCT_OUT=/home/haifeng/android_platform/out/target/product/generic/
+
+sudo apt-get install ubuntu-restricted-extras
+
+如果dpkg被中断了.需要运行:
+sudo dpkg --configure -a进行修复
+
+定时器,实际上就是时钟中断的软中断
+
+Google Reader 快捷键：
+?:帮助
+f:全屏
+1/2:标题模式/展开模式
+n/p:下一条/上一条
+o/enter:打开条目或者关闭条目
+shift+a:所有条目标记为已读
+c:添加评论
+shift+c:观看评论
+shift+u:左边导航条
+
+如果后缀不是.gz可以加个-S参数
+gzip -S .img system.img 
+
+ulimit查看用户栈大小
+The ulimit() call will get or set some limit for the  calling  process
+
+更新默认的java-jdk
+sudo update-alternatives --config javadoc
+
+查看CPU CACHE大小
+haifeng@Tek-life:~$ cat /sys/devices/system/cpu/cpu0/cache/index0/size
+32K
+haifeng@Tek-life:~$ cat /sys/devices/system/cpu/cpu0/cache/index1/size
+32K
+haifeng@Tek-life:~$ cat /sys/devices/system/cpu/cpu0/cache/index2/size
+2048K
+haifeng@Tek-life:~$ cat /sys/devices/system/cpu/cpu1/cache/index2/size
+2048K
+
+
+摄像头驱动安装
+sudo apt-get install uvccapture
+
+vim剪切板的妙用--在blogspot里面
+vim中多文件
+ls 列出缓冲区的文件
+:bn跳转到哪个文件中
+
+看elf的工具：
+eu-readelf是个好东西，eu-readelf -a elf-file 把文件头自己解开列出来.
+xxd 将elf的十六进制搞出来，不如eu-readelf好.
+readelf 
+
+
+磁盘读写测试工具：
+SDD 大数据块 连续大小 读：209MB/S 写：181MB/S  随机大小4KB的情况读： 16MB/S 写：29MB/S
+HDD(5400转) 大数距块 读写：81-30MB/S (有时候写比读块一些)          读： 191KB/S 写：675KB/S
+如果SSD支持trim指令的话，就会让SSD越来越块,为啥？
+传统方法：1.要覆写一个4KB 页的文件系统，首先要把整个512KB 块复制进缓存里。然后，在缓存里删除这个4KB页，替换成新的数据。接下来，清空整个闪存内的这个512KB区域，并从缓存里把新的数据写回去。
+2.删除文件的时候，SSD并不知道，只有被标记可以被覆盖
+实现SSD TRIM技术保证速度不下跌的真正秘密是： 把将来要做的事提前做掉了。 但是这件事迟早要做,所以并不影响寿命。
+
+
+当一个irq来了以后，先进入irq_table，然后调用asm_do_IRQ(),查找desc，调用handler，具体处理
+
+操作系统的启动流程：
+
+全局变量如果没有初始化或者赋值为0，被放在bss段
+
+查询本机支持几种电源休眠方式：
+ cat /sys/power/state 
+standby mem disk
+
+在多核的机器上，要启动指定的cpu个数：
+在grub中vmlinux那一项，加入maxcpus=N(N为要启动的CPU数)
+
+
+两个命名管道的命令：mkfifo和mknod  系统调用mkfifo
+读管道时，如果没有数据，则会一直等待，直到写了数据
+
+strace 用户程序系统调用
+ltrace 用户程序库函数
+
+sys_unlink:删除文件用
+
+uptime命令,系统运行了多久
+
+/var/lib/dpkg/info 查看已经安装的软件
+
+
+编辑：依靠文件.swp
+删除：没有影响
+同时写：看谁保存，保存谁的
+
+查看有哪些文件系统类型被注册进内核:
+cat /proc/filesystems
+第一项 说明这类文件系统是否存在于具体的disc设备，若没有，则nodev
+第二项 说明文件系统的名字(对于MSDOS的文件系统统一为fuseblk)
+
+所有的读写操作都是先提交到“服务器”（submit_bh()），然后等待.
+
+调试工具：
+ftrace  --真的很好用
+gcov 	--优化应用程序
+
+ftrace
+root@Tek-life:/sys/kernel/debug/tracing# wc -l available_*
+898 available_events
+28363 available_filter_functions
+1 available_tracers
+
+
+netstat 查看链接到本机的外部IP
+
+echo $$ 当前进程的id
+
+内核符号地址的获取
+.通过procfs中的kallsym文件或者System.map文件直接查找
+
+
+怎样用root自动登录linux系统:
+GDM的自动登录可以通过设置/etc/gdm/custom.conf文件。在[daemon]这一段中加入如下内容，其他内容保留。注意AutomaticLogin和TimedLogin后面跟的是你希望自动登录的用户名。
+[daemon]
+AutomaticLogin=root
+GtkModulesList=gail:atk-bridge:/usr/lib/gtk-2.0/modules/libkeymouselistener:/usr/lib/gtk-2.0/modules/libdwellmouselistener
+AddGtkModules=true
+RemoteGreeter=/usr/libexec/gdmgreeter
+AutomaticLoginEnable=true
+TimedLoginEnable=true
+TimedLogin=root
+TimedLoginDelay=1
+
+Xen-arm:Hypervisor中找到每一个DOM
+if ( !is_idle_domain(d) )
+{
+write_lock(&domlist_lock);
+pd = &domain_list; /* NB. domain_list maintained in order of dom_id. */
+for ( pd = &domain_list; *pd != NULL; pd = &(*pd)->next_in_list )
+	if ( (*pd)->domain_id > d->domain_id )
+		break;
+d->next_in_list = *pd;
+*pd = d;
+d->next_in_hashbucket = domain_hash[DOMAIN_HASH(dom_id)];
+domain_hash[DOMAIN_HASH(dom_id)] = d;
+write_unlock(&domlist_lock);
+}
+
+一共有多少个port:32位平台有1024个.分为1024/128=8个bucket，每个bucket里面有128个port.根据用途的不同，选择不同的bucket(?有待进步不验证)。例如VIRQ用的是5号(ECS_VIRQ)bucket
+
+进程从用户态进入内核态不会引起CR3的改变但会引起堆栈的改变
+
+为什么一定要用copy_from_user？
+：因为调用copy_from_user(),copy_to_user()等会处理缺页异常.直接访问用户态的地址时不会.
+
+在嵌入式汇编中，从输出部到输入部，一共是%0,依次往后，某些和前面同用寄存器的，在括号中标出。在%和序号之间可以用b或者h，分别代表最低和次低字节。
+
+"&"限定符用于输出操作数，使其唯一的使用某寄存器。
+
+.section和.previous 
+将这两个.section和.previous中间的代码汇编到各自定义的段中，然后跳回去，将这之后的的代码汇编到上一个section中(一般是.text段)， 也就是自定义段之前的段。.section和.previous必须配套使用。 
+MOVL $FOO,%EAX是把FOO在内存中的地址放到EAX中，而MOVL FOO,%EAX是把FOO这个变量的内容放入EAX 
+
+嵌入汇编中一些特殊的符号，参考（http://bbs.chinaunix.net/thread-3585731-1-1.html）
+%c0         消除%0的$符号
+%n0         消除%0的$符号，并添加负号。 (例如%0是4，那么%n0就是-4)
+%l0         和%0相同，但是只用于跳转指令的目标
+%a0         %0本来是一个地址，例如0x8048000，放在%eax中。 现在把它转换为寄存器间接寻址，亦即: (%eax)
+%P0         %c0相同，消除%0的$符号
+例如：
+# define THREAD_SELF \
+  
+({ struct pthread *__self; \
+
+     asm ("movl %%gs:%c1,%0" : "=r" (__self)           \
+
+     : "i" (offsetof (struct pthread, header.self)));         \
+
+ __self;})
+
+在AT&T汇编中，源在前，目标在后。Intel相反。
+
+gethostip 可以获取对方ip，输入域名就可以了
+
+非抢占式内核的spin_lock宏
+1:lock;decb slp->slock
+  jns 3f    //jns：sf为0，跳转。sf:若为负数，sf为1，否则为0
+2:pause
+  cmpb $0, slp->slock  
+  jle 2b    //若slp->slock小于或者等于0，则一直自旋
+  jmp 1b    //若slp->slock大于0，跳到1处，这样，就可以获得自旋锁了
+3:
+在自旋锁的slock变量中，为整数代表未锁，0或者负数都代表获得了锁.
+
+----------------------------------------------------------------
+关于page，page->list和page->lru,可以链到哪些队列呢？
+活跃：active_list (全局)
+不活跃（干净）:inactive_clean_list(在管理区)
+不活跃（脏）:inactive_dirty_list(全局)
+
+page->list还可以链接
+空闲：zone->free_area[]->free_list
+若page页面可交换，通过page->list链接到address_space类型的swap_space(其中有三个队列：干净、脏、锁定);同时page->lru还链入到active_list(全局)中,和hashtable中
+
+----------------
+对于一个文件（在Linux下所有都是文件，包括目录等等） ，如何判断该文件 是不是目录，或者是不是符号链接, 是通过inode ：
+
+如果是目录，则一定有 inode->i_op->lookup 方法，即 inode->i_op->lookup 一定不是NULL
+
+如果是符号链接， 则一定有 inode->i_op->follow_link 方法，即 inode->i_op->follow_link 一定不是NULL
+----------------
+
+file->f_op = inode->i_fop
+
+----------------
+文件系统中sys_open中的mode，是如果在操作过程中新创建文件的访问标志
+----------------
+
+Linux内存模型:(from:李先静博客)
+3G~4G 进程内核区间
+3G    以下 栈
+1G    开始是文件映射区
+   
+      堆
+ ^    .bss、
+ |    .data                   <--从可执行文件中加载	 
+ |   .init、.text、.rodata(只读段)   <--从可执行文件中加载
+804800 开始
+804800 以下保留
+
+bss,data,code都是程序本身运行时所占用的空间。（bss在运行时才会有一段brk出来的空间，原因是，之前存储器很贵，bss初始化为0，没有必要分配空间，所以叫block started by symbol）.
+堆是在程序运行中，动态分配的内存段。其大小并不固定。
+栈，又称堆栈，是在运行时系统分配的一段固定大小的区间。
+
+编译android上的软件要使用Android NDK提供的交叉编译器才可以。比如编译bash和busybox.
+
+看android上的内存使用情况：
+cat /proc/meminfo
+从中，发现，它也是使用了page cache
+
+如果某进程因为资源而wait，那么当资源可用时，便会wakeup该进程
+
+.lds 是链接脚本，其中的某些变量程序可以访问到。比如end.一般在安排page结构的时候，用到。
+
+make -d 所有编译时候的调试信息都可以看到，非常好。 make -n 并不编译，只是打印编译信息
+
+每一个用户线程都有自己的系统空间堆栈
+
+在Linux中，内核线程和进程有很多不同，除了内存空间外，还有，它不能执行一个可执行文件映像，因为，它是kthread_run的，在内部调用了内核里面的函数，另外，用户进程通过execve执行其他函数，并“客死他乡”，而内核线程则不同，在那里生，在哪里死。具体可以查看kthread_run，内嵌汇编源代码。
+
+switch原来可以这样：
+ 188     switch (nr) {
+ 189     case 1:
+ 190         *idx = 0;
+ 191         break;
+ 192     case 2 ... 4:
+ 193         *idx = 1;
+ 194         break;
+ 195     case 5 ... 16:
+ 196         *idx = 2;
+ 197         break;
+ 198     case 17 ... 64:
+ 199         *idx = 3;
+ 200         break;
+ 201     case 65 ... 128:
+ 202         *idx = 4;
+ 203         break;
+ 204     case 129 ... BIO_MAX_PAGES:
+ 205         *idx = 5;
+ 206         break;
+ 207     default:
+ 208         return NULL;
+ 209     }
+
+make mm/swap.i就生成预处理文件了。太神奇了！
+-E 预处理，生成.i文件；-S 编译，生成.s文件； -c 汇编，生成.o目标文件
+
+/home/haifeng/android_platform/frameworks/base/core/res/assets/images
+关掉锁屏
+frameworks/policies/base/phone/com/android/internal/policy/impl/KeyguardViewMediator.java
+
+=====
+查看某个tar包的文件
+tar -tf a.tar.bz2
+查看某个文件是否在某个tar包中
+tar -tf a.tar.bz2 --wildcards "abc"
+查看第一级列表
+tar --exclude="*/*/*" a.tar.bz2 
+
+kerneloops is a program that collects kernel crash information and then submits the extracted signature to the kerneloops.org website for statistical analysis and presentation to the Linux kernel developers.
+
+/etc/kerneloops.conf
+
+=====
+int array[100]
+array 与 &array 的地址值是相同的，但类型不同，一个是数组首地址，一个是数组指针。
+
+int * const test = &i;//const variable test --- 指针不能动
+const int * test= &i; // const location test --- 指针的值不能动
+const_cast可以转化常量指针 const int * var. 不可以转化指针常量 int * const var.
+=====
+根据inode，找到dentry
+d_find_alias(inode)
+
+
+代理：
+
+sudo apt-get install software_name  -o Acquire::http::proxy="http://your_proxy_address:端口号/" 
+
+wget -e http-proxy=proxy.satwe.com:8080 –proxy=on –proxy-user=hamo –proxy-passwd=8888 -c http://www.satwe.com
+sudo gem install --http-proxy http://localhost:8888 $gem_name
+
+====
+ADT:Android Developer Tools
+​SDK:Software Development Kit
+===
+cscope&ctags Android
+
+$ctags -R --exclude=.repo --exclude=.git --exclude=*.so --exclude=*.o --exclude=*.img --exclude=*.so.*
+$find . -name "*.aidl" -o -name "*.cc" -o -name "*.h" -o -name "*.c" -o -name "*.cpp" -o -name "*.java" -o -name "*.mk" > cscope.files
+$cscope -bkq -i cscope.files
+
+====
+从源码中得到android platform版本：
+build/core/version_defaults.mk
+====
+$adb shell service shell
+list所有的service 
+============
+重新挂在rootfs为RW
+mount -wo remount rootfs /
+
+=======================
+红黑树的旋转核心逻辑：
+ 左旋转以： 自己和右子树根节点为轴/右子树根节点的左孩子当自己的右孩子
+ 右旋转以： 自己和左子树跟节点为轴/左子树根节点的右孩子当自己的左孩子
+
+=======
+查看本机开放的端口
+nmap localhost //也可以扫描其他机器开放的端口
+nc -zv localhost 1-65535 //查看1～65535中的所有端口或者某个端口是否开了
+netstat -lpnut //查看链接状况
+=====
+apt-get 只支持http_proxy，如果要使用socks代理，需要用tsocks
+$sudo tsocks apt-get update/...
+========
+bash 与 makefile
+在bash中，如果要引用某个变量用$var,而在makefile中，要引用某个变量需要加括号$(var)
+
+====
+git add -u 无视那些untracked file,只add 在staged中的files
+===
+NFS 的时候，开发板链接的rootfs的目录要加载/etc/exports中，操！
+====
+bss段，在程序文件中，不占用空间。但在加载运行的时候占用空间。它的全称是：block started by symbol.
+为啥在一个没有定义未初始化变量的程序中bss段不为0？
+===
+find . -name "" -exec grep -nH "" {} \;
+
+==
+find . -type f | xargs wc -l
+
+==
+Generate cscope database
+ack -f --cpp [directories] > cscope.files
+cscope -b -q
