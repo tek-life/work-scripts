@@ -2,11 +2,11 @@
 import fnmatch
 import os
 
-rights_array[] = "Copyright (C) 2011-2017 Intel Corporation All rights reserved".split()
-suffixs[] = ['.C', '.EDL', '.CPP', '.CC', 'MAKEFILE','.H']
+rights_array = "Copyright (C) 2011-2017 Intel Corporation All rights reserved".split()
+suffixs = ['.C', '.EDL', '.CPP', '.CC', 'MAKEFILE','.H']
 
-valid_files_array = {}
-invalid_files_array = {}
+valid_files_array=[] 
+invalid_files_array=[]
 
 def check_one_file(fp):
 	count = 0
@@ -50,4 +50,4 @@ if __name__ == "main":
 	check_copy_right(os.getcwd())
 	print("Invalid File\n")
 	for x in invalid_files_array:
-		print(invalid_files_array)
+		print(x)
